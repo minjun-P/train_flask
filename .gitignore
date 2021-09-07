@@ -1,6 +1,7 @@
+.idea
+app.db
 *.pyc
 __pycache__
-train.cmd
-app.db
-*.db
+migrations/
+logs
 *.txt
