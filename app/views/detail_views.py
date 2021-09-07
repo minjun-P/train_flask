@@ -84,9 +84,13 @@ def anonymous():
     )
 
 
-@bp.route("/anonymous_detail/<int:question_id>")
+@bp.route("/anonymous_detail/<int:question_id>", methods=["GET", "POST"])
 def a_detail(question_id):
     question = Question_A.query.get(question_id)
+    if request.method == "POST":
+        db.session.delete(question)
+        db.session.commit()
+        return redirect(url_for("detail.anonymous"))
     return render_template("question/question_a_detail.html", question=question)
 
 

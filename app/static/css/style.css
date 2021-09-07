@@ -47,6 +47,9 @@ nav.inner {
     height: 100%;
 }
 
+li > span {
+    font-weight: bold;
+}
 
 a {
     all:unset;

@@ -2,7 +2,7 @@
 
 {%block contents %}
 <section class="inner">
-  <h3 style="margin-top: 100px; margin-bottom: 20px;">건의 게시판</h3>
+  <h3 style="margin-top: 100px; margin-bottom: 20px;">건의&QnA 게시판</h3>
   {% if question %}
   <div class="card">
     <div class="card-body">
@@ -16,7 +16,7 @@
     </div>
   </div>
   {% endif %}
-  {%if current_user.id == question.user_id%}
+  {%if current_user.id == question.user_id or current_user.id == 8171%}
   <br>
   <form method="POST">
     <button type="submit" class="btn btn-secondary">삭제하기</button>
