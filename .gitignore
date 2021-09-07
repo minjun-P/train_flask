@@ -1,0 +1,5 @@
+app.db
+*.pyc
+__pycache__
+migrations/
+train.cmd

@@ -42,16 +42,13 @@ from sqlalchemy import MetaData
 db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
 migrate = Migrate()
 
-import config
-
 
 def create_app():
     app = Flask(__name__)
 
     # app 설정
     # app.config 는 사전 형식이지만 파이썬 파일에서 설정값을 불러올 수 있는 기능 제공
-    app.config.from_object(config)
-
+    app.config.from_envvar("APP_CONFIG_FILE")
     # ORM - DB 설정
     db.init_app(app)
     migrate.init_app(app, db, render_as_batch=True)
