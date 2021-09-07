@@ -239,6 +239,19 @@ label.toggle_button + input:checked + #toggle_contents {
     align-items: center;
 }
 
+.footer {
+    margin-top: 30px;
+    background-color: rgb(247, 243, 238);
+    color: gray;
+    font-size: 1rem;
+    font-weight: bold;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 @media only screen and (max-width: 1200px) {
     .first_main {
         flex-direction: column;

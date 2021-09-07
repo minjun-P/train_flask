@@ -172,3 +172,15 @@ def faq_create():
         db.session.commit()
         return redirect(url_for("detail.faq_list"))
     return render_template("faq_create.html", form=form)
+
+
+@bp.route("/faq_modify/<int:faq_id>", methods=["GET", "POST"])
+def faq_modify(faq_id):
+    faq = Faq.query.get(faq_id)
+    if request.method == "POST":
+        faq.subject = request.form["subject"]
+        faq.content = request.form["content"]
+
+        db.session.commit()
+        return redirect(url_for("detail.faq_list"))
+    return render_template("faq_create.html", faq=faq)

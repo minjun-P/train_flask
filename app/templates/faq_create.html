@@ -3,24 +3,19 @@
 {%block contents %}
 
 <section class="inner">
-  <h2>질문 등록하기</h2>
+  <h2>FAQ 만들기</h2>
   <hr>
   <br>
-  {% for field, errors in form.errors.items() %}
-  <div class="alert alert-danger" role="alert">
-    <strong>{{ form[field].label }}</strong>: {{ ', '.join(errors) }}
-  </div>
-  {% endfor %}
   <form method="POST">
-    {{form.csrf_token}}
     <div class="form-floating">
-      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="subject"></textarea>
+      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+        name="subject">{{ faq.subject or '' }}</textarea>
       <label for="floatingTextarea">제목</label>
     </div>
     <br>
     <div class="form-floating">
       <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:500px;"
-        name="content"></textarea>
+        name="content">{{faq.content or ''}}</textarea>
       <label for="floatingTextarea2">내용</label>
     </div>
     <button type="submit" class="btn btn-outline-secondary" style="margin-top: 20px;">등록하기</button>
