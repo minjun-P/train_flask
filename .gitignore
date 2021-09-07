@@ -4,4 +4,5 @@ app.db
 __pycache__
 migrations/
 logs
-*.txt
+a.txt
+b.txt
