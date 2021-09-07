@@ -94,6 +94,22 @@ def a_detail(question_id):
     return render_template("question/question_a_detail.html", question=question)
 
 
+@bp.route("/question_a_create", methods=["GET", "POST"])
+def question_a_create():
+    form = QuestionForm()
+    if request.method == "POST" and form.validate_on_submit():
+        subject = form.subject.data
+        content = form.content.data
+        question = Question_A(
+            subject=subject, content=content, create_date=datetime.now()
+        )
+        db.session.add(question)
+        db.session.commit()
+        return redirect(url_for("detail.anonymous"))
+
+    return render_template("question/question_a_create.html", form=form)
+
+
 @bp.route("/answer/<int:question_id>", methods=["POST"])
 def answer(question_id):
     if request.method == "POST":
