@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{%block contents%}
+<section class="main_img">
+    <div class="main_container inner">
+        <div class="title_container">
+            <div class="title">1138기 교육생 여러분 환영합니다</div>
+            <div class="message">3주간의 교육 기간 동안 여러분이 <br>
+                자랑스러운 대한민국 의경으로 거듭나길 바랍니다.<br>
+                이곳의 기억이 길고 힘든 군생활동안 가슴 속에 품고 있을<br>
+                하나의 기준점이 되길 바랍니다.
+            </div>
+        </div>
+    </div>
+</section>
+<section class='first_main inner'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {%for message in messages %}
+    <h3>{{message}}</h3>
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+    <div class="login_form">
+        {% if current_user.is_authenticated %}
+        <h2>안녕하세요</h2>
+        <h5>{{current_user.name}}</h5>
+        <a class='btn btn-outline-secondary' href="{{url_for('main.logout')}}">로그아웃하기</a>
+        {%else%}
+        </form>
+        <h6>*질문을 작성하려면 로그인하세요!</h6>
+        {% for field, errors in form.errors.items() %}
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ form[field].label }}</strong>: {{ ', '.join(errors) }}
+        </div>
+        {% endfor %}
+        <form method="POST">
+            {{form.csrf_token}}
+            <div class="form-floating">
+                {{form.id(class='form-control login_input', id='floatingInput')}}
+                {{form.id.label(for="floatingInput")}}
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control login_input" id="floatingInput" name='pw'>
+                <label for="floatingInput">PASSWORD</label>
+            </div>
+            <button type="submit" id='button' class='btn btn-outline-secondary'>로그인하기</button>
+        </form>
+        {%endif%}
+    </div>
+    <div class="updown"></div>
+    <div class="faq_container">
+        <h2>FAQ</h2>
+        <hr>
+
+        <div class="faq_list">
+            {% for faq in faq_list %}
+            <a href="{{url_for('detail.faq_list')}}">
+                <div class="faq_card">
+                    <div class="card_title">{{faq.subject}}</div>
+                    <hr>
+                    <div class="card_detail">
+                        {{faq.content}}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+</section>
+<section class="inner">
+    <h2>건의 게시판</h2>
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">작성자</th>
+                <th scope="col">제목</th>
+                <th scope="col">작성일자</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if question_list %}
+            {%for question in question_list %}
+            <tr onclick="location.href='/detail/question_detail/{{question.id}}'">
+
+                <th scope="row">{{loop.index}}</th>
+                <td>{{question.user.name}}</td>
+                <td>{{question.subject}}
+                </td>
+                <td>{{question.create_date|datetime}}</td>
+                </a>
+            </tr>
+
+            {%endfor%}
+            {%endif%}
+        </tbody>
+    </table>
+    <a class="btn btn-outline-secondary mb-2" href="{{ url_for('detail.question_list') }}" role="button">목록 보기</a>
+</section>
+<section class="inner">
+    <h2>익명 자유 게시판</h2>
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">제목</th>
+                <th scope="col">작성일자</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if question_a_list %}
+            {%for question in question_a_list %}
+            <tr onclick="location.href='/detail/anonymous_detail/{{question.id}}'">
+                <th scope="row">{{loop.index}}</th>
+                <td>{{question.subject}}</td>
+                <td>{{question.create_date|datetime}}</td>
+            </tr>
+            {%endfor%}
+            {%endif%}
+        </tbody>
+    </table>
+    <a class="btn btn-outline-secondary mb-2" href="{{ url_for('detail.anonymous') }}" role="button">목록 보기</a>
+</section>
+
+{% endblock %}

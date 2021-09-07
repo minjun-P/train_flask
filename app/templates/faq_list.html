@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+<section class='inner faq_table'>
+  <h1>FAQ</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"> </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for faq in faq_list %}
+      <tr>
+        <td>
+          <div>
+            <label for="{{faq.id}}" class="toggle_button">{{faq.subject}}</label>
+            <input type="checkbox" id="{{faq.id}}">
+            <div id="toggle_contents" style="white-space: pre-line;">
+              {{faq.content}}
+              <label for="toggle_button3" class="close_button">X</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+  {% if current_user.id == 8171 %}
+  <a class='btn btn-primary' href="{{url_for('detail.faq_create')}}">faq 작성하기</a>
+  {% endif %}
+</section>
+{%endblock%}

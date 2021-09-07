@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{%block contents %}
+<section class="inner">
+  <h3 style="margin-top: 100px; margin-bottom: 20px;">익명 자유 게시판</h3>
+
+  <h6>[아쉽게도 어떤 방법으로도 확인이 불가능하니, 안심하고 써도 됩니다^^ 하고싶은 말 다 해보세요]</h6>
+  {% if question %}
+  <div class="card">
+    <div class="card-body container">
+      <div class="row justify-content-end"> <small>작성일시: {{question.create_date|datetime}}</small>
+      </div>
+
+      <div class="row align-items-center">
+        <h5>{{question.subject}}</h5>
+      </div>
+
+    </div>
+  </div>
+  <div class="card" style="height:600px; margin-top: 20px;">
+    <div class="card-body">
+      <small>본문</small>
+      <p>{{question.content}}</p>
+    </div>
+  </div>
+  {% endif %}
+  {%if current_user.id ==8171%}
+  <br>
+  <form method="POST">
+    <button type="submit" class="btn btn-secondary">삭제하기</button>
+  </form>
+
+  {%endif%}
+  <a class="btn btn-outline-secondary my-2" href="{{ url_for('detail.anonymous') }}" role="button">목록으로
+    돌아가기</a>
+
+  {% if question.comment_set%}
+  <h5>[ 댓글 ]</h5>
+  {% for comment in question.comment_set %}
+  <div class="card my-2 p-2">
+    <div class="card-body container">
+      <div class="row justify-content-center">
+        <div class="col-10"></div>
+        <div class="col-2">{{comment.create_date|datetime}}</div>
+      </div>
+      <div class="row">
+        <div class='col-10'>{{comment.content}}</div>
+      </div>
+      {% if current_user.id == 8171 %}
+      <div class="row">
+        <a href="{{ url_for('detail.comment_delete', comment_id = comment.id )}}" class='small'>
+          <small>삭제하기</small>
+        </a>
+      </div>
+      {% endif %}
+
+
+    </div>
+  </div>
+  {%endfor%}
+  {%endif%}
+
+  <form action="{{url_for('detail.comment_create',question_id=question.id)}}" method='POST' style="margin-top: 20px;">
+    <div class="mb-3">
+      <label for="comment" class="form-label">댓글 작성하기</label>
+      <textarea class="form-control" id="comment" rows="2" name="comment"></textarea>
+    </div>
+    <button type="submit" class="btn btn-secondary">등록</button>
+  </form>
+</section>
+
+
+{%endblock%}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>교육훈련센터 게시판</title>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="교육훈련센터 게시판">
+  <meta property="og:description" content="질문을 등록하고 답변을 받으세요">
+  <meta property="og:image" content="/app/static/img/og_main.PNG">
+
+  <!-- CSS Rest 설정 값 초기화 -->
+  <link rel='stylesheet' href="{{url_for('static', filename='css/normalize.css')}}">
+
+  <!-- 각종 아이콘 가져오기 -->
+  <script src="https://kit.fontawesome.com/622b3fccfe.js" crossorigin="anonymous"></script>
+
+  <!-- 웹폰트 가져오기 : Spoca Han Sans Neo -->
+  <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+
+  <!-- 부트스트랩 css 파일 -->
+  <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+
+  <!-- 직접 만든 css 파일 -->
+  <link rel='stylesheet' href="{{url_for('static',filename='css/style.css')}}">
+</head>
+
+<body>
+  <header>
+    {% include 'nav.html' %}
+  </header>
+  {% block contents %}
+  {% endblock %}
+
+</body>
+
+</html>

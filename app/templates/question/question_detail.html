@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{%block contents %}
+<section class="inner">
+  <h3 style="margin-top: 100px; margin-bottom: 20px;">건의 게시판</h3>
+  {% if question %}
+  <div class="card">
+    <div class="card-body">
+      <h4>{{question.subject}}</h4>
+      <small>작성자: {{question.user.name}}</small>
+    </div>
+  </div>
+  <div class="card" style="height:600px; margin-top: 20px;">
+    <div class="card-body">
+      <p>{{question.content}}</p>
+    </div>
+  </div>
+  {% endif %}
+  {%if current_user.id == question.user_id%}
+  <br>
+  <form method="POST">
+    <button type="submit" class="btn btn-secondary">삭제하기</button>
+  </form>
+
+  {%endif%}
+  <a class="btn btn-outline-secondary my-2" href="{{ url_for('detail.question_list') }}" role="button">목록으로
+    돌아가기</a>
+  {% if question.answer_set %}
+  <h4>답변</h4>
+  {% for answer in question.answer_set %}
+  <div class="card my-2 p-2">
+    <div class="card-body">
+      {{answer.content}}
+    </div>
+    {%if current_user.id == 8171 %}
+    <div>
+      <a href="{{ url_for('detail.answer_delete', answer_id = answer.id )}}" class='small'>
+        <small>삭제하기</small>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {%else%}
+  <h4>아직 답변이 등록되지 않았어요</h4>
+  {%endif%}
+
+  {% if current_user.id == 8171 %}
+  <br>
+  <br>
+  <form action="{{ url_for('detail.answer', question_id=question.id) }}" method='POST'>
+    <div class="mb-3">
+      <label for="answer" class="form-label">[ 답변하기 ]</label>
+      <textarea class="form-control" id="answer" rows="4" name='answer'></textarea>
+    </div>
+    <button type="submit" class="btn btn-secondary">등록</button>
+  </form>
+  {%endif%}
+</section>
+
+
+{%endblock%}

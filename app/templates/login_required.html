@@ -1,0 +1,22 @@
+{%extends 'base.html' %}
+
+{%block contents%}
+<section class="inner" id='only_login'>
+
+
+  <div class="login_form login_required">
+    <h5>로그인 없이는 <br>접근이 불가능합니다</h5>
+    <form method="POST">
+      {{form.csrf_token}}
+      <div class="form-floating">
+        {{ form.id(class=' form-control login_input', id='floatingInput' )}} {{ form.id.label(for="floatingInput" )}}
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control login_input" id="floatingInput" name='pw'>
+        <label for="floatingInput">PASSWORD</label>
+      </div>
+      <button type="submit" id='button' class='btn btn-outline-secondary'>로그인하기</button>
+    </form>
+  </div>
+</section>
+{%endblock%}

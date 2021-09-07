@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{%block contents %}
+<section class="inner">
+  <h1>건의 게시판</h1>
+  <ul>
+    <li>요령 : 문제 상황을 구체적으로 기술해주세요</li>
+    <li>예시: 청소도구 부족, 시설 고장, 제도적 건의 사항</li>
+    <li>훈련대원이 확인하고 하루 이내로 답변을 달고 조치를 취해주도록 할게요</li>
+
+  </ul>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">작성자</th>
+        <th scope="col">제목</th>
+        <th scope="col">작성일자</th>
+        <th scope='col'>답변</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if question_list %}
+      {%for question in question_list.items %}
+      <tr onclick="location.href='/detail/question_detail/{{question.id}}'">
+        <th scope="row">{{loop.index}}</th>
+        <td>{{question.user.name}}</td>
+        <td>{{question.subject}}</td>
+        <td>{{question.create_date|datetime}}</td>
+        <td>{% if question.answer_set %}O {%else%}X{%endif%}</td>
+      </tr>
+      {%endfor%}
+      {%else%}
+      <tr>
+        <td>질문이 없습니다</td>
+      </tr>
+      {%endif%}
+    </tbody>
+  </table>
+  <!-- 페이징처리 시작 -->
+  <ul class="pagination justify-content-center">
+    <!-- 이전페이지 -->
+    {% if question_list.has_prev %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ question_list.prev_num }}">이전</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+    </li>
+    {% endif %}
+    {% for page_num in question_list.iter_pages() %}
+    {% if page_num %}
+    {% if page_num != question_list.page %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+    </li>
+    {% else %}
+    <li class="page-item active" aria-current="page">
+      <a class="page-link" href="#">{{ page_num }}</a>
+    </li>
+    {% endif %}
+    {% else %}
+    <li class="disabled">
+      <a class="page-link" href="#">...</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    <!-- 다음페이지 -->
+    {% if question_list.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ question_list.next_num }}">다음</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+    </li>
+    {% endif %}
+  </ul>
+  <!-- 페이징처리 끝 -->
+  <a class="btn btn-outline-secondary" href="{{url_for('detail.question_create') }}" role="button">질문 작성하기</a>
+</section>
+
+{% endblock %}
