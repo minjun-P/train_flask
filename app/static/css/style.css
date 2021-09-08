@@ -256,5 +256,9 @@ label.toggle_button + input:checked + #toggle_contents {
     .first_main {
         flex-direction: column;
     }
+
+    nav * {
+        font-size: 0.8rem;
+    }
 }
 
