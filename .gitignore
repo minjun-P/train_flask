@@ -1,5 +1,6 @@
 .idea
-
+/app.db
+*.db
 *.pyc
 __pycache__
 migrations/

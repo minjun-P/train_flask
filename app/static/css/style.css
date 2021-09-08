@@ -258,7 +258,7 @@ label.toggle_button + input:checked + #toggle_contents {
     }
 
     nav * {
-        font-size: 0.8rem;
+        font-size: 70%;
     }
 }
 
