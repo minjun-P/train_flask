@@ -1,10 +1,10 @@
 <nav class='inner'>
   <div>
-    <a href="{{ url_for('main.main') }}">메인으로 돌아가기</a>
+    <a href="{{ url_for('main.main') }}">메인화면</a>
   </div>
   {%if current_user.is_authenticated %}
   <div>
-    <a href="{{url_for('main.logout')}}">{{current_user.name}}<small> 로그아웃?</small></a>
+    <a href="{{url_for('main.logout')}}">{{current_user.name}}<small> 로그아웃</small></a>
   </div>
   {% endif %}
 </nav>
